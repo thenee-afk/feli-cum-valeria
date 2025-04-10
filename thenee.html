@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Feliz 18 Valeria! 2025 🎉</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      text-align: center;
+      padding: 20px;
+      color: #333;
+      cursor: url('https://cdn-icons-png.flaticon.com/128/616/616408.png'), auto;
+      overflow-x: hidden;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      color: #d6336c;
+    }
+    h2 {
+      color: #d6336c;
+      margin-top: 30px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: rgba(255,255,255,0.7);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    li {
+      margin: 8px 0;
+      padding: 5px;
+      transition: all 0.3s;
+    }
+    li:hover {
+      background-color: rgba(255,111,145,0.2);
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1em;
+      background-color: #ff6f91;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background-color: #ff3e6c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    #dato-curioso {
+      margin: 20px auto;
+      font-size: 1.2em;
+      background-color: #fff3f6;
+      padding: 20px;
+      border-radius: 12px;
+      display: inline-block;
+      min-height: 60px;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .globo {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      animation: flotar 10s infinite ease-in;
+      z-index: -1;
+    }
+    @keyframes flotar {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    .fuego {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: #f00;
+      border-radius: 50%;
+      animation: estallar 1s ease-out forwards;
+      z-index: -1;
+    }
+    @keyframes estallar {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+    /* Estilos del juego Snake */
+    #juego-container {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 500px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    #snake-game {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      border: 3px solid #d6336c;
+      border-radius: 5px;
+      position: relative;
+      background-color: #fff0f6;
+    }
+    #snake-canvas {
+      background-color: #fff0f6;
+    }
+    #game-info {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px auto;
+      max-width: 300px;
+      font-size: 1.2em;
+      color: #d6336c;
+      font-weight: bold;
+    }
+    #instrucciones {
+      background: #fff3f6;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 15px auto;
+      max-width: 400px;
+      font-size: 0.9em;
+    }
+    #game-over {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(214, 51, 108, 0.9);
+      color: white;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      z-index: 10;
+      border-radius: 5px;
+    }
+    #reiniciar {
+      margin-top: 15px;
+      background: white;
+      color: #d6336c;
+      font-weight: bold;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 ¡Feliz 18 Cumpleaños, Valeria! 2025 🎉</h1>
+
+  <h2>Premios "A la Mejor Valeria Anuales"</h2>
+  <ul>
+    <script>
+      for (let year = 2007; year <= 2025; year++) {
+        document.write(`<li>${year}: Valeria Zamudio</li>`);
+      }
+    </script>
+  </ul>
+
+  <button onclick="mostrarDato()">🐾 Dame un dato curioso de animales</button>
+  <div id="dato-curioso"></div>
+
+  <!-- Juego Snake -->
+  <div id="juego-container">
+    <h2>🐍 Snake de Animales 🦁</h2>
+    <div id="instrucciones">
+      <p>Usa las flechas del teclado para moverte. ¡Come los animales para crecer!</p>
+    </div>
+    <div id="game-info">
+      <div>Puntuación: <span id="score">0</span></div>
+      <div>Récord: <span id="high-score">0</span></div>
+    </div>
+    <div id="snake-game">
+      <canvas id="snake-canvas" width="300" height="300"></canvas>
+      <div id="game-over">
+        <h2>¡Game Over!</h2>
+        <p>Puntuación: <span id="final-score">0</span></p>
+        <button id="reiniciar" onclick="reiniciarJuego()">Jugar de nuevo</button>
+      </div>
+    </div>
+    <button onclick="iniciarJuego()">Comenzar Juego</button>
+  </div>
+
+  <!-- Audio personalizado desde Google Drive -->
+  <audio id="cumpleaudio" loop>
+    <source src="https://drive.google.com/uc?export=download&id=1w8OaR4uuYUdUF_gaHPf2IgHE67JObd_K" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+  <button onclick="toggleAudio()" style="margin-top: 10px;">🔊 Reproducir/Pausar música</button>
+
+  <!-- Globos animados -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const globo = document.createElement('div');
+      globo.className = 'globo';
+      globo.style.left = Math.random() * 100 + 'vw';
+      globo.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+      globo.style.animationDuration = (5 + Math.random() * 5) + 's';
+      document.body.appendChild(globo);
+    }
+
+    // Fuegos artificiales
+    setInterval(() => {
+      const fuego = document.createElement('div');
+      fuego.className = 'fuego';
+      fuego.style.left = Math.random() * 100 + 'vw';
+      fuego.style.top = Math.random() * 100 + 'vh';
+      fuego.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+      document.body.appendChild(fuego);
+      setTimeout(() => fuego.remove(), 1000);
+    }, 500);
+  </script>
+
+  <script>
+    const datosCuriosos = [
+      'Los pulpos tienen tres corazones y sangre azul.',
+      'Las jirafas solo duermen 30 minutos al día.',
+      'Los delfines tienen nombres únicos entre ellos.',
+      'Los pingüinos proponen con piedras a sus parejas.',
+      'Las nutrias se toman de las manos al dormir.'
+    ];
+
+    function mostrarDato() {
+      const dato = datosCuriosos[Math.floor(Math.random() * datosCuriosos.length)];
+      document.getElementById('dato-curioso').textContent = dato;
+    }
+
+    // Control de audio
+    function toggleAudio() {
+      const audio = document.getElementById('cumpleaudio');
+      if (audio.paused) {
+        audio.play().catch(e => console.log("Error al reproducir: ", e));
+      } else {
+        audio.pause();
+      }
+    }
+
+    // Juego Snake
+    const canvas = document.getElementById('snake-canvas');
+    const ctx = canvas.getContext('2d');
+    const box = 20;
+    let snake = [];
+    let food = {};
+    let direction = '';
+    let game;
+    let score = 0;
+    let highScore = localStorage.getItem('highScore') || 0;
+    document.getElementById('high-score').textContent = highScore;
+
+    // Emojis de comida
+    const foodEmojis = ['🐭', '🐹', '🐰', '🐻', '🐨', '🐼'];
+
+    function iniciarJuego() {
+      snake = [{x: 9 * box, y: 10 * box}];
+      direction = 'RIGHT';
+      score = 0;
+      document.getElementById('score').textContent = score;
+      document.getElementById('game-over').style.display = 'none';
+      generarComida();
+      if (game) clearInterval(game);
+      game = setInterval(dibujar, 100);
+    }
+
+    function dibujar() {
+      ctx.fillStyle = "#fff0f6";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Dibujar serpiente
+      for (let i = 0; i < snake.length; i++) {
+        ctx.fillStyle = i === 0 ? '#d6336c' : '#ff6f91';
+        ctx.fillRect(snake[i].x, snake[i].y, box, box);
+        ctx.strokeStyle = "#fff0f6";
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+      }
+      
+      // Dibujar comida
+      ctx.fillStyle = '#4CAF50';
+      ctx.fillRect(food.x, food.y, box, box);
+      ctx.font = '16px Arial';
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(food.emoji, food.x + box/2, food.y + box/2);
+      
+      // Mover serpiente
+      let head = {x: snake[0].x, y: snake[0].y};
+      if (direction === 'LEFT') head.x -= box;
+      if (direction === 'UP') head.y -= box;
+      if (direction === 'RIGHT') head.x += box;
+      if (direction === 'DOWN') head.y += box;
+      
+      // Comer comida
+      if (head.x === food.x && head.y === food.y) {
+        score += 10;
+        document.getElementById('score').textContent = score;
+        generarComida();
+      } else {
+        snake.pop();
+      }
+      
+      // Añadir nueva cabeza
+      snake.unshift(head);
+      
+      // Game Over
+      if (
+        head.x < 0 || head.y < 0 || 
+        head.x >= canvas.width || head.y >= canvas.height || 
+        choque(head, snake)
+      ) {
+        clearInterval(game);
+        document.getElementById('final-score').textContent = score;
+        document.getElementById('game-over').style.display = 'flex';
+        if (score > highScore) {
+          highScore = score;
+          localStorage.setItem('highScore', highScore);
+          document.getElementById('high-score').textContent = highScore;
+        }
+      }
+    }
+
+    function choque(head, array) {
+      for (let i = 1; i < array.length; i++) {
+        if (head.x === array[i].x && head.y === array[i].y) return true;
+      }
+      return false;
+    }
+
+    function generarComida() {
+      food = {
+        x: Math.floor(Math.random() * 15) * box,
+        y: Math.floor(Math.random() * 15) * box,
+        emoji: foodEmojis[Math.floor(Math.random() * foodEmojis.length)]
+      };
+    }
+
+    function reiniciarJuego() {
+      iniciarJuego();
+    }
+
+    // Controles con teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+      if (e.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+      if (e.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+      if (e.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+    });
+
+    // Reproducir música al hacer clic en cualquier parte
+    document.body.addEventListener('click', () => {
+      document.getElementById('cumpleaudio').play().catch(e => console.log("Click para activar audio"));
+    }, { once: true });
+  </script>
+</body>
+</html>
